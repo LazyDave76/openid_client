@@ -22,7 +22,7 @@ class Authenticator {
             ? new Flow.authorizationCodeWithPKCE(client)
             : new Flow.authorizationCode(client)
           ..scopes.addAll(scopes)
-          ..redirectUri = redirectUri ?? Uri.parse("http://localhost:$port/cb");
+          ..redirectUri = redirectUri ?? Uri.parse("http://localhost:$port/");
 
   Future<Credential> authorize() async {
     var state = flow.authenticationUri.queryParameters["state"];
@@ -47,7 +47,11 @@ class Authenticator {
               request.response.statusCode = 200;
               request.response.headers.set("Content-type", "text/html");
               request.response.writeln("<html>"
-                  "<h1>You can now close this window</h1>"
+                  "<head>"
+                  "<style>"
+                  "body {background-color:#1784ff;}"                  
+                  "</style>"
+                  "</head>"
                   "<script>window.close();</script>"
                   "</html>");
               request.response.close();
